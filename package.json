@@ -1,0 +1,26 @@
+{
+  "name": "final-project",
+  "version": "1.0.0",
+  "description": "Simple Text post/thread website",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "handlebars views/partials/post.handlebars -f public/postTemplate.js",
+    "prestart": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OSU-CS290-Sp18/final-project-cs290.git"
+  },
+  "author": "Alexander Smith, Matthew Kerr",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/OSU-CS290-Sp18/final-project-cs290/issues"
+  },
+  "homepage": "https://github.com/OSU-CS290-Sp18/final-project-cs290#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-handlebars": "^3.1.0",
+    "handlebars": "^4.1.2"
+  }
+}
