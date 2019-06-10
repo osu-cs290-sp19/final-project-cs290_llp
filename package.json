@@ -9,8 +9,7 @@
     "e": "npm install --save express",
     "eh": "npm install --save express-handlebars",
     "h": "npm install --save handlebars",
-    "install": "npm run e && npm run eh && npm run h",
-    "prestart": "npm run build"
+    "install": "npm run e && npm run eh && npm run h"
   },
   "repository": {
     "type": "git",

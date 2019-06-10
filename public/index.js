@@ -28,7 +28,6 @@ function handleModalAcceptClick() {
   var postText = document.getElementById('post-text-input').value;
   var postAuthor = document.getElementById('post-author-input').value;
   var postID = Math.floor(Math.random() * 100000);
-  console.log(postID);
 
   if (postText) {
 	
@@ -179,13 +178,7 @@ function doSearchUpdate() {
 
 /*
  * This function parses an existing DOM element representing a single post
- * into an object representing that post and returns that object.  The object
- * is structured like this:
- *
- * {
- *   text: "...",
- *   author: "..."
- * }
+ * into an object representing that post and returns that object.
  */
 function parsePostElem(postElem) {
 
