@@ -6,10 +6,11 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "handlebars views/partials/post.handlebars -f public/postTemplate.js",
-    "exp": "npm install --save express",
-    "exha": "npm install --save express-handlebars",
-    "han": "npm install --save handlebars",
-    "prestart": "npm run build && npm run exp && npm run exha && npm run han"
+    "e": "npm install --save express",
+    "eh": "npm install --save express-handlebars",
+    "h": "npm install --save handlebars",
+    "install": "npm run e && npm run eh && npm run h",
+    "prestart": "npm run build"
   },
   "repository": {
     "type": "git",
