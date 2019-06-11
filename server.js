@@ -48,24 +48,35 @@ app.get('/', function (req, res) {
 		}
 	});
   });
-/*
-app.get('/people/:person', function (req, res, next) {
-  var person = req.params.person.toLowerCase();
-  var collection = db.collection('people');
-  collection.find({ personId: person }).toArray(function (err, people) {
-    if (err) {
-      res.status(500).send({
-        error: "Error fetching people from DB"
-      });
-    } else if (people.length < 1) {
-      next();
-    } else {
-      console.log("== people:", people);
-      res.status(200).render('photoPage', people[0]);
-    }
-  });
+
+app.get('/posts/:postID', function (req, res, next) {
+	var posts = [];
+	var postID = req.params.postId;
+	var collection = db.collection('posts');
+	collection.find({ postID: postID }).toArray(function (err, post) {
+		if (err) {
+		  res.status(500).send({
+			error: "Error fetching posts from DB"
+		  });
+		} else {
+		  posts.push(post);
+		}
+	});
+	collection.find({ postReply: postID }).toArray(function (err, post2) {
+		if (err) {
+		  res.status(500).send({
+			error: "Error fetching posts from DB"
+		  });
+		} else {
+			posts.push(post2);
+			console.log("== Posts:", posts);
+			res.status(200).render('indexPage', {
+				posts: posts
+			}); 
+		}
+	});
 });
-*/
+
 app.post('/post/:postId/:postReply/:postURL/:postText/:postAuthor', function (req, res) {
   if (req.params.postText) {
     var collection = db.collection('posts');

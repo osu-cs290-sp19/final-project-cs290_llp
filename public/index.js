@@ -133,6 +133,9 @@ function hideCreatePostModal() {
  * Returns true if the post matches the query and false otherwise.
  */
 function postMatchesSearchQuery(post, searchQuery) {
+  /*
+   * An empty query matches all posts.
+   */
   if (!searchQuery) {
     return true;
   }
@@ -216,7 +219,7 @@ window.addEventListener('DOMContentLoaded', function () {
   for (var i = 0; i < postElemsCollection.length; i++) {
     allPosts.push(parsePostElem(postElemsCollection[i]));
   }
-  
+
   var createPostButton = document.getElementById('create-post-button');
   if (createPostButton) {
     createPostButton.addEventListener('click', showCreatePostModal);
