@@ -30,7 +30,7 @@ MongoClient.connect(mongoUrl, function (err, client) {
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 
-app.use(bodyParser.json());
+app.use(bodyParser.json({strict: false}));
 app.use(express.static('public'));
 
 app.get('/', function (req, res) {
@@ -48,27 +48,43 @@ app.get('/', function (req, res) {
 		}
 	});
   });
-/*
-app.get('/people/:person', function (req, res, next) {
-  var person = req.params.person.toLowerCase();
-  var collection = db.collection('people');
-  collection.find({ personId: person }).toArray(function (err, people) {
-    if (err) {
-      res.status(500).send({
-        error: "Error fetching people from DB"
-      });
-    } else if (people.length < 1) {
-      next();
-    } else {
-      console.log("== people:", people);
-      res.status(200).render('photoPage', people[0]);
-    }
-  });
+
+app.get('/posts/:postID', function (req, res, next) {
+	var posts = [];
+	var postID = req.params.postID;
+	var collection = db.collection('posts');
+	collection.find({ postID: postID }).toArray(function (err, post) {
+		if (err) {
+		  res.status(500).send({
+			error: "Error fetching posts from DB"
+		  });
+		} else if(post.length > 0){
+		  posts.push(post[0]);
+		}
+	});
+	collection.find({ postReply: postID }).toArray(function (err, post2) {
+		if(post2.length > 0){
+			for(var i = 0; i < post2.length; i++)
+			posts.push(post2[i]);
+		}
+		if (err) {
+		  res.status(500).send({
+			error: "Error fetching posts from DB"
+		  });
+		} else{
+			console.log("== Posts:", posts);
+			res.status(200).render('indexPage', {
+				posts: posts
+			}); 
+		}
+	});
 });
-*/
+
 app.post('/post/:postId/:postReply/:postURL/:postText/:postAuthor', function (req, res) {
   if (req.params.postText) {
     var collection = db.collection('posts');
+	console.log("==Body:", req.body);
+	console.log(req.body.url);
 	var post = {
 	  postReply: req.params.postReply,
 	  postURL: req.params.postURL,

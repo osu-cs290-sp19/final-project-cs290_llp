@@ -53,7 +53,17 @@ function handleModalAcceptClick() {
 	var requestURL = '/post/' + postID + '/' + postReply + '/' + postURL + '/' + postText + '/' + postAuthor;
 	postRequest.open('POST', requestURL);
 	
-	postRequest.send();
+	var postBody = {};
+	postBody[0] = postURL;
+	new Blob([JSON.stringify(postURL)], {type : 'application/json'})
+	
+	var requestBody = JSON.stringify({
+      url: postURL,
+      caption: postText
+    });
+
+	
+	postRequest.send(requestBody);
 	
 	clearSearchAndReinsertPosts();
 
