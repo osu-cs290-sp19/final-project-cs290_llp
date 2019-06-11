@@ -138,15 +138,6 @@ a:focus {
   font-weight: bold;
 }
 
-.post-content .button {
-  border: none;
-  background-color: inherit;
-}
-
-.post-content .btn:hover {
-  color: #ff0000;
-}
-
 #create-post-button {
   position: fixed;
   right: 30px;

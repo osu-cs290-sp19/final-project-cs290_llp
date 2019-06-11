@@ -205,7 +205,7 @@ window.addEventListener('DOMContentLoaded', function () {
   for (var i = 0; i < postElemsCollection.length; i++) {
     allPosts.push(parsePostElem(postElemsCollection[i]));
   }
-
+  
   var createPostButton = document.getElementById('create-post-button');
   if (createPostButton) {
     createPostButton.addEventListener('click', showCreatePostModal);
