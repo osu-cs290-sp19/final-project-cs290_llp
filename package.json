@@ -10,7 +10,7 @@
     "eh": "npm install --save express-handlebars",
     "h": "npm install --save handlebars",
     "m": "npm install --save mongodb",
-    "install": "npm run e && npm run eh && npm run h && npm run m"
+    "install": "npm run e && npm run eh && npm run h && npm run m && npm run build"
   },
   "repository": {
     "type": "git",
