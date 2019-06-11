@@ -40,6 +40,10 @@ function handleModalAcceptClick() {
 	   postAuthor = "Anonymous";
 	}
 	
+	if(!postURL) {
+		postURL = 'https://spng.pngfly.com/20180426/ccq/kisspng-todd-howard-the-elder-scrolls-v-skyrim-fallout-4-make-faces-5ae167071ce923.5249474515247214151184.jpg';
+	}
+	
 	allPosts.push({
 	   reply: postReply,
 	   URL: postURL,
