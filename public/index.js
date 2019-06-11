@@ -40,6 +40,10 @@ function handleModalAcceptClick() {
 	   postAuthor = "Anonymous";
 	}
 	
+	if(!postURL) {
+		postURL = 'https://spng.pngfly.com/20180426/ccq/kisspng-todd-howard-the-elder-scrolls-v-skyrim-fallout-4-make-faces-5ae167071ce923.5249474515247214151184.jpg';
+	}
+	
 	allPosts.push({
 	   reply: postReply,
 	   URL: postURL,
@@ -50,8 +54,11 @@ function handleModalAcceptClick() {
 	
 	
 	var postRequest = new XMLHttpRequest();
-	var requestURL = '/post/' + postID + '/' + postReply + '/' + postURL + '/' + postText + '/' + postAuthor;
+	var linkURL = encodeURIComponent(postURL);
+	var requestURL = '/post/' + postID + '/' + postReply + '/' + linkURL + '/' + postText + '/' + postAuthor;
 	postRequest.open('POST', requestURL);
+	
+
 	
 	postRequest.send();
 	
@@ -133,6 +140,9 @@ function hideCreatePostModal() {
  * Returns true if the post matches the query and false otherwise.
  */
 function postMatchesSearchQuery(post, searchQuery) {
+  /*
+   * An empty query matches all posts.
+   */
   if (!searchQuery) {
     return true;
   }
@@ -216,7 +226,7 @@ window.addEventListener('DOMContentLoaded', function () {
   for (var i = 0; i < postElemsCollection.length; i++) {
     allPosts.push(parsePostElem(postElemsCollection[i]));
   }
-  
+
   var createPostButton = document.getElementById('create-post-button');
   if (createPostButton) {
     createPostButton.addEventListener('click', showCreatePostModal);
