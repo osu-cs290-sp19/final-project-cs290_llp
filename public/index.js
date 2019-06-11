@@ -28,8 +28,9 @@ function handleModalAcceptClick() {
   var postText = document.getElementById('post-text-input').value;
   var postAuthor = document.getElementById('post-author-input').value;
   var postID = Math.floor(Math.random() * 100000);
+  console.log(postID);
 
-  if (postText) {
+  if (true) {
 	
 	if (!postReply) {
 	   postReply = "0";
@@ -46,8 +47,15 @@ function handleModalAcceptClick() {
 	   author: postAuthor,
 	   ID: postID
 	});
-
-    clearSearchAndReinsertPosts();
+	
+	
+	var postRequest = new XMLHttpRequest();
+	var requestURL = '/post/' + postID + '/' + postReply + '/' + postURL + '/' + postText + '/' + postAuthor;
+	postRequest.open('POST', requestURL);
+	
+	postRequest.send();
+	
+	clearSearchAndReinsertPosts();
 
     hideCreatePostModal();
 
@@ -125,9 +133,6 @@ function hideCreatePostModal() {
  * Returns true if the post matches the query and false otherwise.
  */
 function postMatchesSearchQuery(post, searchQuery) {
-  /*
-   * An empty query matches all posts.
-   */
   if (!searchQuery) {
     return true;
   }
@@ -178,7 +183,13 @@ function doSearchUpdate() {
 
 /*
  * This function parses an existing DOM element representing a single post
- * into an object representing that post and returns that object.
+ * into an object representing that post and returns that object.  The object
+ * is structured like this:
+ *
+ * {
+ *   text: "...",
+ *   author: "..."
+ * }
  */
 function parsePostElem(postElem) {
 
