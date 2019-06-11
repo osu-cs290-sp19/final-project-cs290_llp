@@ -30,6 +30,7 @@ MongoClient.connect(mongoUrl, function (err, client) {
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(express.static('public'));
 
@@ -51,24 +52,27 @@ app.get('/', function (req, res) {
 
 app.get('/posts/:postID', function (req, res, next) {
 	var posts = [];
-	var postID = req.params.postId;
+	var postID = req.params.postID;
 	var collection = db.collection('posts');
 	collection.find({ postID: postID }).toArray(function (err, post) {
 		if (err) {
 		  res.status(500).send({
 			error: "Error fetching posts from DB"
 		  });
-		} else {
-		  posts.push(post);
+		} else if(post.length > 0){
+		  posts.push(post[0]);
 		}
 	});
 	collection.find({ postReply: postID }).toArray(function (err, post2) {
+		if(post2.length > 0){
+			for(var i = 0; i < post2.length; i++)
+			posts.push(post2[i]);
+		}
 		if (err) {
 		  res.status(500).send({
 			error: "Error fetching posts from DB"
 		  });
-		} else {
-			posts.push(post2);
+		} else{
 			console.log("== Posts:", posts);
 			res.status(200).render('indexPage', {
 				posts: posts
@@ -82,7 +86,7 @@ app.post('/post/:postId/:postReply/:postURL/:postText/:postAuthor', function (re
     var collection = db.collection('posts');
 	var post = {
 	  postReply: req.params.postReply,
-	  postURL: req.params.postURL,
+	  postURL: decodeURIComponent(req.params.postURL),
 	  postText: req.params.postText,
 	  postAuthor: req.params.postAuthor,
 	  postID: req.params.postId

@@ -50,8 +50,11 @@ function handleModalAcceptClick() {
 	
 	
 	var postRequest = new XMLHttpRequest();
-	var requestURL = '/post/' + postID + '/' + postReply + '/' + postURL + '/' + postText + '/' + postAuthor;
+	var linkURL = encodeURIComponent(postURL);
+	var requestURL = '/post/' + postID + '/' + postReply + '/' + linkURL + '/' + postText + '/' + postAuthor;
 	postRequest.open('POST', requestURL);
+	
+
 	
 	postRequest.send();
 	
